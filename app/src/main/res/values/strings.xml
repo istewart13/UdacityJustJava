@@ -4,5 +4,7 @@
     <string name="zero">0</string>
     <string name="price">Price</string>
     <string name="zero_dollars">$0</string>
-    <string name="order">Order</string>
+    <string name="order">order</string>
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
 </resources>
