@@ -1,11 +1,13 @@
 package com.example.android.justjava;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -15,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int WHIPPED_CREAM_PRICE = 1;
     public static final int CHOCOLATE_PRICE = 2;
 
-    int quantity = 0;
+    int quantity = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-
         EditText nameEditText = (EditText) findViewById(R.id.name);
         String name = nameEditText.getText().toString();
 
@@ -83,16 +84,28 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the plus button is clicked.
      */
     public void increment(View view) {
-        quantity++;
-        displayQuantity(quantity);
+        if (quantity < 100) {
+            quantity++;
+            displayQuantity(quantity);
+        } else {
+            CharSequence text = "You cannot order more than 100 coffees";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(this, text, duration).show();
+        }
     }
 
     /**
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        quantity--;
-        displayQuantity(quantity);
+        if (quantity > 1) {
+            quantity--;
+            displayQuantity(quantity);
+        } else {
+            CharSequence text = "You cannot order less than 1 coffee";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(this, text, duration).show();
+        }
     }
 
     /**
