@@ -12,6 +12,8 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
 
     public static final int COFFEE_CUP_PRICE = 5;
+    public static final int WHIPPED_CREAM_PRICE = 1;
+    public static final int CHOCOLATE_PRICE = 2;
 
     int quantity = 0;
 
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int price = calculatePrice();
 
         EditText nameEditText = (EditText) findViewById(R.id.name);
         String name = nameEditText.getText().toString();
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolateCheckBox);
         boolean chocolateIsChecked = chocolateCheckBox.isChecked();
+
+        int price = calculatePrice(whippedCreamIsChecked, chocolateIsChecked);
 
         String summary = createOrderSummary(price, whippedCreamIsChecked, chocolateIsChecked, name);
         displayMessage(summary);
@@ -59,9 +62,21 @@ public class MainActivity extends AppCompatActivity {
      * Calculates the price of an order.
      *
      * @return total price
+     * @param whippedCreamIsChecked
+     * @param chocolateIsChecked
      */
-    private int calculatePrice() {
-        return quantity * COFFEE_CUP_PRICE;
+    private int calculatePrice(boolean whippedCreamIsChecked, boolean chocolateIsChecked) {
+        int basePrice = COFFEE_CUP_PRICE;
+
+        if (whippedCreamIsChecked) {
+            basePrice += WHIPPED_CREAM_PRICE;
+        }
+
+        if (chocolateIsChecked) {
+            basePrice += CHOCOLATE_PRICE;
+        }
+
+        return quantity * basePrice;
     }
 
     /**
